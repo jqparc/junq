@@ -1,0 +1,34 @@
+/* home 전용 레이아웃 추가 */
+.dashboard-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    align-items: center;
+}
+
+.navbar {
+    width: 100%;
+    height: 60px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    position: sticky;
+    top: 0;
+}
+
+.main-content {
+    max-width: 1200px;
+    width: 100%;
+    padding: 40px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}

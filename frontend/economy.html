@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경제 섹션 - 비즈니스 서비스</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .economy-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 800px;
+            margin: 20px;
+        }
+        .article-list { margin-top: 20px; text-align: left; }
+        .article-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        .article-item:hover { background-color: #f9f9f9; }
+        .tag {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #0052cc;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .nav-back {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0052cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="economy-container">
+        <a href="home.html" class="nav-back">← 메인으로 돌아가기</a>
+        <div class="logo-area" style="text-align: left; margin-bottom: 20px;">
+            <h1 style="font-size: 28px;">📈 경제 트렌드</h1>
+            <p>최신 경제 지표와 뉴스를 확인하세요.</p>
+        </div>
+
+        <div class="article-list">
+            <div class="article-item">
+                <span class="tag">금융</span>
+                <h3>금리 동결 결정, 시장에 미치는 영향은?</h3>
+                <p style="color: #666; font-size: 14px; margin-top: 5px;">중앙은행의 최근 발표에 따르면...</p>
+            </div>
+            <div class="article-item">
+                <span class="tag">부동산</span>
+                <h3>주요 도시 거주용 부동산 시장 현황</h3>
+                <p style="color: #666; font-size: 14px; margin-top: 5px;">공급 물량 감소세가 이어지며...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 페이지 로드 시 보안 확인
+        window.onload = function() {
+            const token = localStorage.getItem('accessToken');
+            if (!token) {
+                alert("접근 권한이 없습니다. 로그인해주세요.");
+                window.location.href = 'login.html';
+            }
+        };
+    </script>
+</body>
+</html>

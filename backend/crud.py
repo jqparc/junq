@@ -9,7 +9,8 @@ def get_user_by_username(db: Session, username: str):
 def create_user(db: Session, user: schemas.UserCreate):
     hashed_password = auth.get_password_hash(user.password)
     # models.User에 정의된 필드명에 맞춰 저장
-    db_user = models.User(username=user.username, hashed_password=hashed_password)
+    # 컬럼 이름인 'password'에 해시된 비밀번호 값을 넣어줍니다.
+    db_user = models.User(username=user.username, password=hashed_password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)

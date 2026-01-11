@@ -1,0 +1,22 @@
+/* static/css/base_indx.css */
+/* 상위 탭 메뉴를 가로로 배치하고 전체 너비 사용 */
+.base-indx-top {
+  display: flex;
+  justify-content: space-evenly;  
+  width: 100%;             /* 전체 너비 사용 */
+  position: fixed;
+  background-color: #541d1d;
+  /* padding: 60; */
+  border-bottom: 1px solid #ccc;
+}
+
+/* 콘텐츠 영역 */
+.home-content {
+  padding-top: 23px;
+  background-color: #ffffff;
+  max-width: 1200px;
+  margin: 0 auto;
+  line-height: 2;
+  font-size: 16px;
+  color: #222;
+}

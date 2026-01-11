@@ -1,0 +1,33 @@
+<!-- templates/ecnm/ecnm_info/ecnm_edit.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h2>콘텐츠 수정</h2>
+  <hr>
+
+  <form method="POST">
+    <div>
+      <label>제목</label>
+      <input type="text" name="dtl_name" value="{{ item.dtl_name }}" class="form-control" required>
+    </div>
+
+    <div>
+      <label>내용</label>
+      <textarea 
+        name="content"
+        rows="30"
+        class="form-control"
+        style="min-height: 500px; width: 90%; margin: auto; display: block;"
+        required>{{ item.content }}</textarea>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <button type="submit" class="btn btn-primary">저장</button>
+      <a href="{{ url_for('ecnm.ecnm_info.ecnm_detail', item_id=item.dtl_code ~ item.proc_date) }}" class="btn btn-secondary">취소</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+

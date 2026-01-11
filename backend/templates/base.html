@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}내 사이트{% endblock %}</title>    
+    <!-- <link rel="stylesheet" href="/static/css/style.css"> -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home/home.css') }}"> -->
+
+    {% block extra_css %}{% endblock %}
+
+</head>
+<body>
+    <!-- 상위 탭 메뉴 -->
+   <div class="header-container">  
+      <div class="header-top">
+         <div class="header-right">
+            {% if session.user %}
+               <span class="logn-name">{{ session.user.name }}님</span>
+               <a href="{{ url_for('naver_auth.logout') }}" class="login-link">로그아웃</a>
+            {% else %}
+               <a href="{{ url_for('auth.login_page') }}" class="login-link">로그인</a>
+               <a href="{{ url_for('auth.signup_page') }}" class="login-link">회원가입</a>
+            {% endif %}
+         </div>
+      </div>    
+      <div class="header-main">
+         <a href="{{ url_for('home.home_indx') }}" class="logo-link">
+            <div class="logo">
+               <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo">
+            </div>
+            <div class="company-name">Parc</div>
+         </a>
+      </div>
+   </div>
+      <!-- 상위 탭 메뉴 -->
+    <nav class="nav-indx">      
+        <a href="{{ url_for('home.home_indx') }}" 
+           class="top-button {% if active_top == 'home' %}active{% endif %}">홈</a>
+        <a href="{{ url_for('ecnm.ecnm_indx') }}" 
+           class="top-button {% if active_top == 'ecnm' %}active{% endif %}">경제</a>
+        <a href="{{ url_for('asst.asst_indx') }}" 
+           class="top-button {% if active_top == 'asst' %}active{% endif %}">자산</a>
+        <a href="{{ url_for('dev.dev_indx') }}" 
+           class="top-button {% if active_top == 'dev' %}active{% endif %}">개발</a>
+        <a href="{{ url_for('home.home_indx') }}"
+           class="top-button {% if active_top == 'aaa' %}active{% endif %}">마이페이지</a>
+    </nav>
+      <!-- 상위 탭 메뉴 -->
+    <nav class="nav-dtl">      
+      {% for tab in nav_dtl_tabs %}
+         <a href="{{ tab.url }}" 
+            class="top-button {% if tab.active %}active{% endif %}">{{ tab.name }}</a>
+      {% endfor %}
+    </nav>
+  <!-- 페이지별 콘텐츠 -->
+  <div class="content">
+      <!-- {% block content %}{% endblock %} -->
+  </div>
+</body>
+</html>

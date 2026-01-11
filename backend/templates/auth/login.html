@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}로그인{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+
+    <h2>로그인</h2>
+
+    <div class="login-buttons">
+
+        <!-- 네이버 로그인 -->
+        <a href="{{ url_for('naver_auth.login_start') }}" class="btn naver-login">
+            NAVER 로 로그인
+        </a>
+
+        <!-- 카카오 로그인 (아직 미구현이지만 자리만 만들어 둠) -->
+        <a href="#" class="btn kakao-login">
+            KAKAO 로 로그인
+        </a>
+
+        <!-- 메일주소 로 로그인 -->
+        <a href="{{ url_for('auth.login_mail') }}" class="btn signup-btn">
+            메일주소 로 로그인
+        </a>
+    </div>
+</div>
+{% endblock %}

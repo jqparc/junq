@@ -1,0 +1,42 @@
+/* 홈 탭 메뉴 영역 */
+.home-tab {
+  display: flex;
+  justify-content: space-evenly;  
+  width: 100%;
+  position: fixed;
+  /* top: 60; */
+  z-index: 999; 
+}
+
+/* 각 탭 버튼 스타일 */
+.tab-button {
+  flex: 1;
+  text-align: center;
+  padding: 4px 0;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.5);
+  background-color: #4a87e2;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* 호버 시 스타일 */
+.tab-button:hover {
+  background-color: #3569b8;
+}
+
+/* 현재 선택된 탭 강조 */
+.tab-button.active {
+  color: #f5f5f5;
+}
+
+/* 콘텐츠 영역 */
+.home-indx-content {
+  padding-top: 20px;
+  background-color: #ffffff;
+  max-width: 1200px;
+  margin: 0 auto;
+  line-height: 2;
+  font-size: 16px;
+  color: #222;
+}

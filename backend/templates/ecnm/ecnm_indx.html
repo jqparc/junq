@@ -1,0 +1,16 @@
+<!-- templates/ecnm/ecnm_indx.html -->
+{% extends "base.html" %}
+{% block content %}
+
+<h2>미증시 이슈 ( {{ summary.proc_date[:4] }}-{{ summary.proc_date[4:6] }}-{{ summary.proc_date[6:] }} )</h2>
+<div class="indx-content">
+  {{ summary.cntn }}
+</div>
+
+<h2>경제 이슈 ( {{ summary.proc_date[:4] }}-{{ summary.proc_date[4:6] }}-{{ summary.proc_date[6:] }} )</h2>
+<div class="indx-content">
+  {{ thdy_mnrt.cntn }}
+</div>
+
+
+{% endblock %}

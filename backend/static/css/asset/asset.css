@@ -1,0 +1,53 @@
+/* /static/css/asset/asset.css */
+body {
+  margin: 0;
+  padding: 5px; /* 전체 페이지 좌우 여백 */
+}
+
+.tab-content {
+  /* max-width: 1200px;   너무 넓지 않게 제한 */
+  margin: 0 auto;      /* 가운데 정렬 */
+  padding: 20px;       /* 내부 여백 */
+}
+
+.tab-menu {
+    display: flex;
+    justify-content: space-evenly; /* 또는 space-evenly */
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ccc;
+
+      position: fixed;
+  top: 30px;       /* brand-bar + top-menu 높이만큼 내려줌 */
+  left: 0;
+  right: 0;
+  z-index: 998;
+
+}
+
+.tab-button {
+    flex: 1; /* 각 탭이 동일한 너비를 갖도록 설정 */
+    text-align: center;
+    padding: 4px 0;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;        
+    background-color: #4a87e2; /* 기본 탭 밝은 블루 */
+    transition: background-color 0.3s, color 0.3s;
+
+}
+
+.tab-button:hover {
+    background-color: #3569b8; /*호버 시 조금 더 진한 블루*/
+}
+
+.tab-button.active {
+    /* background-color: #3569b8; 액티브 탭: 짙은 네이비 블루 */
+    color: #f5f5f5;               /* 흰색 글자 */
+}
+
+.tab-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+  padding-top: 0px; 
+}

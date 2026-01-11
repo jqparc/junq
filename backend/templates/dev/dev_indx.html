@@ -1,0 +1,28 @@
+<!-- templates/ecnm/ecnm_indx.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+  <!-- 제목과 버튼 정렬 -->
+  <div style="display: flex; justify-content: space-between; align-items: baseline;">
+    <h2>구조</h2>
+    <button type="submit" form="saveForm" class="btn btn-primary">저장</button>
+  </div>
+
+  <hr>
+
+  <!-- 본문 입력창 -->
+  <form id="saveForm" method="POST">
+    <div>
+      <label></label>
+      <textarea name="content"
+                rows="30"
+                class="form-control"
+                style="min-height: 500px; width: 90%; margin: auto; display: block;"
+                required>{{ indx_data.get('content', '') }}</textarea>
+    </div>
+  </form>
+
+</div>
+{% endblock %}

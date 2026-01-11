@@ -1,0 +1,54 @@
+/* static/css/base_indx.css */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 60px auto;      /* 가로·세로 중앙 느낌 */
+    text-align: center;     /* 내부 버튼 가운데 정렬 */
+}
+
+.login-buttons {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;              /* 버튼 간격 */
+    align-items: center;
+}
+
+.login-buttons .btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 0;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    transition: 0.2s;
+}
+
+/* 네이버 로그인 초록색 */
+.naver-login {
+    background-color: #03C75A;
+}
+.naver-login:hover {
+    background-color: #02b653;
+}
+
+/* 카카오 로그인 노란색 + 검정 텍스트 */
+.kakao-login {
+    background-color: #FEE500;
+    color: #3A1D1D;
+}
+.kakao-login:hover {
+    background-color: #f3d900;
+}
+
+/* 회원가입 회색 */
+.signup-btn {
+    background-color: #8E8E8E;
+}
+.signup-btn:hover {
+    background-color: #7a7a7a;
+}

@@ -1,0 +1,159 @@
+/* static/css/layout.css */
+
+/* 전체 페이지 레이아웃 */
+body {
+  display: flex;
+  flex-direction: column;
+  /* min-height: 100%;  */
+}
+
+/* 메인 컨텐츠 영역 */
+main {
+  /* flex: 1;  */
+  /* padding: 20px; */
+  /* background-color: #fff; */
+}
+
+/* 사이드바 레이아웃 */
+.sidebar {
+  width: 100%;
+  /* background-color: #f1f1f1; */
+  padding: 10px;
+}
+
+.content {
+  /* ← 위아래 0, 좌우 40px */
+  padding: 0 40px;  
+  /* flex: 1; */
+  /* padding: 20px; */
+}
+
+
+/* 사이드바 + 컨텐츠를 나란히 배치 */
+.layout-row {
+  display: flex;
+  /* gap: 20px; */
+}
+
+/* 푸터 영역 */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  /* padding: 12px; */
+}
+
+/********************** 헤더 레이아웃 **************************/
+.header-container {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;   
+}
+.header-top {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    /* padding: 5px 15px 0 0;  */
+}
+.header-right .login-link {
+    /* margin-left: 15px; */
+    font-size: 13px;
+    color: #444444d8;
+    text-decoration: none;
+}
+.header-main {
+    display: flex;
+    justify-content: left; 
+    align-items: center;
+    /* gap: 5px; */
+    /* padding: 6px 0; */
+}
+.logo img {
+    height: 32px;
+    width: auto;
+    display: block;  
+  /* ← 위아래 0, 좌우 40px */
+  padding: 0 6px;  
+  
+}
+.company-name {
+    font-size: 30px;
+    font-weight: bold;
+    color: #1A263A;
+    margin-bottom: 4px;  /* 숫자 2~6px 정도로 조정해보면 딱 맞음 */
+}
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;  /* 밑줄 제거 */
+    color: inherit;         /* 글자색 유지 */
+}
+/********************** 헤더 레이아웃 끝************************/
+/*************************************************************/
+/********************** 상단 NAV 레이아웃***********************/
+.nav-indx {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: flex; 
+  justify-content: space-between;  
+  align-items: center; 
+  background-color: #1A263A;
+  /* border-bottom: 1px solid #5a4141; */
+}
+.nav-indx .top-button {
+  background-color: transparent;   
+  flex: 1;                     
+  text-align: center;      
+  font-size: 14px;
+  text-decoration: none;
+  color: #ffffff73;
+  padding: 4px;
+}
+.nav-indx .top-button:last-child {
+  border-right: none;
+}
+.nav-indx .top-button:hover {
+  background-color: rgba(255,255,255,0.15);
+  border-radius: 4px;
+}
+.nav-indx .top-button.active {
+  /* background-color: #001b4dee; */
+  font-size: 15px;
+  font-weight: bold;
+  color: #f8f7f7e1;
+}
+/********************** 상단 NAV 레이아웃 끝*********************/
+/*************************************************************/
+/********************** 하단 NAV 레이아웃***********************/
+.nav-dtl {
+  width: 100%;
+  position: sticky;
+  top: 29px;
+  background-color: #1a263aee; /* 연한 남색 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  gap: 40px; 
+}
+
+.nav-dtl .top-button {
+  flex: 1;  
+  text-align: center;
+  background-color: transparent;
+  color: #ffffff73;
+  text-decoration: none;
+  font-size: 13px;
+  padding: 3px;
+}
+
+.nav-dtl .top-button:hover {
+  background-color: rgba(255,255,255,0.15);
+  border-radius: 4px;
+}
+.nav-dtl .top-button.active {
+  font-size: 13px;
+  font-weight: bold;
+  color: #f8f7f7e3;
+}
+/********************** 하단 NAV 레이아웃 끝*********************/

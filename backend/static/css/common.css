@@ -1,0 +1,92 @@
+/* static/css/common.css */
+ 
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #1A263A;
+}
+
+h1, h2, h3 {
+  margin: 8px 0;
+  font-weight: 600;
+  /* margin-bottom: 16px; */
+  color: #1A263A;
+}
+
+/* 기본 컨테이너 */
+.container {
+  /* max-width: 1200px; */
+  /* margin: 0 auto; */
+  /* padding: 20px; */
+}
+
+/* 버튼 공통 스타일 */
+button, .btn{
+  border: none;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #1A263A;
+  color: #ffffff8a;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  font-size: 12px;
+  /* font-weight: 500;   */
+}
+
+button:hover, .btn:hover {
+  background-color: #1a263ad5;
+}
+/*******************테이블 관련 레이아웃*****************/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 4px;
+  text-align: center;
+}
+
+th {
+  background-color: #1A263A;
+  color: #ffffff8a;
+  font-size: 12px;
+  font-weight: 500;  
+}
+
+td {
+  background-color: #FFFFFF; 
+  font-size: 12px;
+  color: #1A263A;              
+}
+/*****************테이블 관련 레이아웃 끝***************/
+
+/* 네비게이션 공통 스타일 */
+.nav-link {
+  color: #333;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: #007bff;
+}
+
+
+/*******************기본 페이지 레이아웃*****************/
+.indx-content {
+  color: #1A263A;  
+  white-space: pre-line;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+
+  font-size: 14px;       
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;      
+  line-height: 1;      
+}
+/*****************기본 페이지 레이아웃 끝****************/

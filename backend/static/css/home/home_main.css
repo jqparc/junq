@@ -1,0 +1,15 @@
+/* home_main.css */
+
+.home-main {
+  text-align: center;
+}
+
+.home-main h2 {
+  color: #007bff;
+}
+
+.home-main .summary {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #444;
+}

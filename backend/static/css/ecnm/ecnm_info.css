@@ -1,0 +1,70 @@
+/* static/css/ecnm/ecnm_info.css */
+
+.btn-write-box{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2px;   /* ← 원하는 만큼 띄우기 */
+}
+
+.td-list-title{
+  text-align: left;
+}
+
+.td-list-title a {
+    text-decoration: none;
+}
+
+.td-list-title a:link,
+.td-list-title a:visited,
+.td-list-title a:active {
+  color: #1A263A; 
+  text-decoration: none;
+}
+
+.td-list-title a:hover{
+    text-decoration: underline;
+    font-weight: bold
+}
+/*******************************************************/
+/*******************************************************/
+/******************하단 페이지 네비***********************/
+.my-pagination {
+    display: flex;
+    justify-content: center;
+    /* margin-top: 10px; */
+}
+
+/* 숫자 목록 기본 스타일 제거 */
+.my-pagination ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+/* 각 페이지 버튼 스타일 */
+.my-pagination li {
+    /* margin: 0 5px; */
+}
+
+.my-pagination a {
+    /* display: block; */
+    padding: 0px 4px;
+    /* border: 1px solid #ccc; */
+    border-radius: 4px;
+    text-decoration: none;
+    color: #1a263a88;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+/* 활성화된 페이지 */
+.my-pagination li.active a {
+    color: #1A263A; 
+    font-weight: bold;      /* 글자 굵게 */
+}
+
+/* 마우스 오버 */
+.my-pagination a:hover {
+    background-color: #eee;
+}

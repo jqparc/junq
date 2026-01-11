@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}이메일 로그인{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+
+    <h2>메일주소로 로그인</h2>
+
+    <form method="POST" class="login-form">
+
+        <input type="email" name="email" class="input-box" placeholder="이메일 입력" required>
+
+        <input type="password" name="password" class="input-box" placeholder="비밀번호 입력" required>
+
+        <button type="submit" class="btn email-login">
+            로그인
+        </button>
+
+        <a href="{{ url_for('auth.signup_page') }}" class="link-text">
+            아직 회원이 아니신가요? 회원가입 하기 →
+        </a>
+    </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,161 @@
+<!-- templates/asset/stck_dmst/stck_dmst_indx.html -->
+{% extends "base.html" %}
+{% block content %}
+
+<h1>코인</h1>
+<h2>코인보유현황</h2>
+
+<table id="coinTable" border="1" style="border-collapse:collapse;">
+    <thead>
+        <tr>
+            <th>종목코드</th>
+            <th>종목명</th>
+            <th>보유수량</th>
+            <th>현재가</th>
+            <th>매입단가</th>
+            <th>평가액</th>
+            <th>매입액</th>
+            <th>평가손익</th>
+            <th>수익률</th>
+            <th>구분</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in coin_ma %}
+        <tr data-code="{{ item.itms_code }}">
+            <td class="ticker_code">{{ item.itms_code.replace("-KRW", "") }}</td>
+            <td class="itms_name">{{ item.itms_name }}</td>
+            <td class="hold_stcn">{{ item.hold_stcn }}</td>
+            <td class="prsn_prc">-</td>
+            <td class="buyn_prc">{{ item.buyn_prc }}</td>
+            <td class="vlamt">-</td>
+            <td class="buyn_amt">-</td>
+            <td class="prls_amt">-</td>
+            <td class="rnrt">-</td>
+            <td class="dstn_name">{{ item.dstn_name }}</td>
+        </tr>
+        {% endfor %}
+        <tr id="sumRow">
+            <td colspan="2">합계</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="sum_vlamt">0</td>
+            <td class="sum_buyn_amt">0</td>
+            <td class="sum_prls_amt">0</td>
+            <td class="sum_rnrt">0</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<script>
+    function updateCoinPrices() {
+    fetch("/coin_api/current_prices")
+        .then(res => res.json())
+        .then(data => {
+        let sum_vlamt = 0;
+        let sum_buyn_amt = 0;
+        let sum_prls_amt = 0;
+
+        document.querySelectorAll("#coinTable tbody tr[data-code]").forEach(row => {
+            const code = row.dataset.code.toLowerCase().replace("-", "_");
+            const priceData = data[code];
+            if (!priceData || priceData.error) return;
+
+            const hold_stcn = parseFloat(row.querySelector(".hold_stcn").textContent);
+            const buyn_prc = parseFloat(row.querySelector(".buyn_prc").textContent.replace(/,/g, ""));
+            const prsn_prc = parseFloat(priceData.last);
+
+            const vlamt = Math.round(prsn_prc * hold_stcn);
+            const buyn_amt = buyn_prc * hold_stcn;
+            const prls_amt = Math.round(vlamt - buyn_amt);
+            const rnrt = buyn_amt > 0 ? (prls_amt / buyn_amt * 100) : 0;
+
+            // 테이블 값 업데이트
+            row.querySelector(".prsn_prc").textContent = prsn_prc.toLocaleString('ko-KR');
+            row.querySelector(".buyn_prc").textContent = buyn_prc.toLocaleString('ko-KR');
+            row.querySelector(".vlamt").textContent = vlamt.toLocaleString('ko-KR');
+            row.querySelector(".buyn_amt").textContent = buyn_amt.toLocaleString('ko-KR');
+            row.querySelector(".prls_amt").textContent = prls_amt.toLocaleString('ko-KR');
+            row.querySelector(".rnrt").textContent = rnrt.toFixed(2) + "%";
+
+            // 손익 색상 표시
+            row.querySelector(".prls_amt").style.color = prls_amt > 0 ? "red" : prls_amt < 0 ? "blue" : "black";
+            row.querySelector(".rnrt").style.color = rnrt > 0 ? "red" : rnrt < 0 ? "blue" : "black";
+
+            // 합계 계산
+            sum_vlamt += vlamt;
+            sum_buyn_amt += buyn_amt;
+            sum_prls_amt += prls_amt;
+        });
+
+        // 합계 행 업데이트
+        const sumRow = document.getElementById("sumRow");
+        sumRow.querySelector(".sum_vlamt").textContent = sum_vlamt.toLocaleString('ko-KR');
+        sumRow.querySelector(".sum_buyn_amt").textContent = sum_buyn_amt.toLocaleString('ko-KR');
+        sumRow.querySelector(".sum_prls_amt").textContent = sum_prls_amt.toLocaleString('ko-KR');
+        sumRow.querySelector(".sum_rnrt").textContent = sum_buyn_amt > 0 ? (sum_prls_amt / sum_buyn_amt * 100).toFixed(2) + "%" : "0%";
+            // 손익 색상 표시
+        sumRow.querySelector(".sum_prls_amt").style.color = sum_prls_amt > 0 ? "red" : sum_prls_amt < 0 ? "blue" : "black";
+        sumRow.querySelector(".sum_rnrt").style.color = (sum_prls_amt / sum_buyn_amt * 100) > 0 ? "red" : (sum_prls_amt / sum_buyn_amt * 100) < 0 ? "blue" : "black";
+        });
+    }
+
+    // 최초 실행 + 10초마다 갱신
+    updateCoinPrices();
+    setInterval(updateCoinPrices, 10000);
+
+
+
+    // document.querySelectorAll("#stockTable th").forEach((th, index) => {
+    //     th.addEventListener("click", () => sortTable(index));
+    // });
+
+    // let sortState = {}; // 각 컬럼별 상태 저장: 'asc' / 'desc' / 'none'
+
+    // function sortTable(colIndex) {
+    //     const tbody = document.querySelector("#stockTable tbody");
+    //     const sumRow = document.getElementById("sumRow");
+    //     const rows = Array.from(tbody.querySelectorAll("tr")).filter(r => r.id !== "sumRow");
+
+    //     // 상태 토글
+    //     const prev = sortState[colIndex] || 'none';
+    //     const next = prev === 'none' ? 'asc' : prev === 'asc' ? 'desc' : 'none';
+    //     sortState[colIndex] = next;
+
+    //     if (next === 'none') {
+    //         // 원래 순서로 복귀
+    //         rows.sort((a, b) => Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex))
+    //             .forEach(row => tbody.insertBefore(row, sumRow));
+    //         return;
+    //     }
+
+    //     const asc = next === 'asc';
+
+    //     rows.sort((a, b) => {
+    //         let aText = a.children[colIndex].textContent.replace(/,/g, '').replace('%','').trim();
+    //         let bText = b.children[colIndex].textContent.replace(/,/g, '').replace('%','').trim();
+
+    //         let aVal = isNaN(aText) ? aText : parseFloat(aText);
+    //         let bVal = isNaN(bText) ? bText : parseFloat(bText);
+
+    //         if (aVal < bVal) return asc ? -1 : 1;
+    //         if (aVal > bVal) return asc ? 1 : -1;
+    //         return 0;
+    //     });
+
+    //     rows.forEach(row => tbody.insertBefore(row, sumRow));
+    // }
+
+    // function initOriginalOrder() {
+    //     const tbody = document.querySelector("#stockTable tbody");
+    //     const rows = Array.from(tbody.querySelectorAll("tr")).filter(r => r.id !== "sumRow");
+    //     rows.forEach((row, idx) => row.dataset.originalIndex = idx);
+    // }
+    // initOriginalOrder();
+
+
+</script>
+{% endblock %}

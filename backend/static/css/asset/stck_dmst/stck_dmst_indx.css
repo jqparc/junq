@@ -1,0 +1,55 @@
+/* 전체 페이지 기본 스타일 */
+body {
+  font-family: "Noto Sans KR", Arial, sans-serif;
+  background-color: #f9fafc;
+  margin: 20px;
+  color: #333;
+}
+
+/* 제목 스타일 */
+h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #34495e;
+  margin-bottom: 20px;
+}
+
+/* 표 스타일 */
+#grid_stck_dmst table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* 헤더 스타일 */
+#grid_stck_dmst th {
+  background-color: #2c3e50;
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  font-weight: 600;
+}
+
+/* 셀 스타일 */
+#grid_stck_dmst td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* 홀수/짝수 줄 색상 */
+#grid_stck_dmst tr:nth-child(even) {
+  background-color: #f4f6f8;
+}
+
+/* 마우스 오버 효과 */
+#grid_stck_dmst tr:hover {
+  background-color: #eaf2f8;
+  transition: background-color 0.2s ease-in-out;
+}

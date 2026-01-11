@@ -1,0 +1,27 @@
+/* home_mypage.css */
+
+.mypage {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mypage h2 {
+  color: #007bff;
+}
+
+.mypage .profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.mypage .profile img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.mypage .profile-info {
+  font-size: 16px;
+}

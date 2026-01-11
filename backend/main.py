@@ -7,13 +7,14 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import models, schemas, auth, crud
 from database import engine, get_db
-from routers import users, posts
+from routers import users, posts, home, auth
+from starlette.middleware.sessions import SessionMiddleware
 
 # 서버 실행 시 DB 테이블 생성
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
+app.add_middleware(SessionMiddleware, secret_key="super-secret-key")
 # [수정 2] 절대 경로 계산 (어디서 실행하든 폴더를 잘 찾게 해줌)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, "static")
@@ -36,25 +37,8 @@ app.add_middleware(
     allow_headers=["*"],      # 모든 요청 헤더 허용
 )
 
-# --- [수정 5] 화면(HTML)을 보여주는 라우터 추가 ---
-# 이 부분이 있어야 브라우저 주소창에 쳤을 때 화면이 나옵니다.
-
-@app.get("/")
-def read_home(request: Request):
-    return templates.TemplateResponse("home.html", {"request": request})
-
-@app.get("/login")
-def read_login(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
-
-@app.get("/register")
-def read_register(request: Request):
-    return templates.TemplateResponse("register.html", {"request": request})
-
-@app.get("/economy")
-def read_economy(request: Request):
-    return templates.TemplateResponse("economy.html", {"request": request})
-
 # ★ 핵심: 쪼개놓은 라우터들을 여기에 등록합니다.
-app.include_router(users.router)
-app.include_router(posts.router) 
+app.include_router(home.router)   # 홈 화면 (주소: /)
+app.include_router(auth.router)   # 로그인/회원가입 (주소: /auth/...)
+app.include_router(users.router)  # 유저 API
+app.include_router(posts.router)  # 게시글 API

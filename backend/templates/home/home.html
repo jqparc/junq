@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}메인 페이지 - JunQ{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', path='css/home/home.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+
+    <main class="main-content">
+        <header class="dashboard-header"> 
+            <h1 class="header-title">대시보드 개요</h1>
+            <p class="header-desc">오늘의 주요 지표와 업데이트를 확인하세요.</p>
+        </header>
+
+        <div class="card-grid">
+            <a href="{{ url_for('home.home_indx') }}" class="dashboard-card">
+                <div class="card-icon">📈</div>
+                <h3 class="card-title">경제 트렌드</h3>
+                <p class="card-desc">글로벌 시장 분석 및 최신 경제 뉴스를 실시간으로 확인하세요.</p>
+                <span class="card-link-text link-active">바로가기 →</span>
+            </a>
+
+            <div class="dashboard-card">
+                <div class="card-icon">🗓️</div>
+                <h3 class="card-title">나의 일정</h3>
+                <p class="card-desc">중요한 비즈니스 미팅과 일정을 한눈에 관리합니다.</p>
+                <span class="card-link-text link-disabled">준비 중</span>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon">📊</div>
+                <h3 class="card-title">시장 점유율</h3>
+                <p class="card-desc">업계 동향 및 시장 데이터 분석 보고서입니다.</p>
+                <span class="card-link-text link-disabled">준비 중</span>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        window.onload = function() {
+            // 사용자 환영 메시지 로직 (필요시 사용)
+        };
+    </script>
+</div>
+{% endblock %}

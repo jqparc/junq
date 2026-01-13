@@ -11,8 +11,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 # 3. 홈 화면 연결
-# HTML에서 url_for('home.home_indx')라고 부르면 이 함수가 실행됩니다.
-@router.get("/", name="home.home_indx")
+# HTML에서 url_for('home')라고 부르면 이 함수가 실행됩니다.
+@router.get("/", name="home")
 def home_index(request: Request):
     # home.html을 브라우저에 보여줍니다.
     return templates.TemplateResponse("home/home.html", {

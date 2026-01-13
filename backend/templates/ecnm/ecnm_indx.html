@@ -1,16 +1,63 @@
 <!-- templates/ecnm/ecnm_indx.html -->
 {% extends "base.html" %}
+{% block title %}Economy - Parc{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', path='css/home/home.css') }}">
+{% endblock %}
+
 {% block content %}
+<div class="dashboard-layout">
 
-<h2>미증시 이슈 ( {{ summary.proc_date[:4] }}-{{ summary.proc_date[4:6] }}-{{ summary.proc_date[6:] }} )</h2>
-<div class="indx-content">
-  {{ summary.cntn }}
+    <main class="main-content">
+        <header class="dashboard-header"> 
+            <h1 class="header-title">대시보드 개요</h1>
+            <p class="header-desc">오늘의 주요 지표와 업데이트를 확인하세요.</p>
+        </header>
+
+        <div class="card-grid">
+            <a href="{{ url_for('ecnm') }}" class="dashboard-card">
+                <div class="card-icon">📈</div>
+                <h3 class="card-title">시장지표</h3>
+                <p class="card-desc">글로벌 시장 분석 및 최신 경제 뉴스를 실시간으로 확인하세요.</p>
+                <span class="card-link-text link-active">바로가기 →</span>
+            </a>
+
+            <div class="dashboard-card">
+                <div class="card-icon">🗓️</div>
+                <h3 class="card-title">정보</h3>
+                <p class="card-desc">중요한 비즈니스 미팅과 일정을 한눈에 관리합니다.</p>
+                <span class="card-link-text link-disabled">준비 중</span>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-split-layout">
+                    <div class="card-left">
+                        <div class="card-icon">📈</div> <div>
+                            <h3 class="card-title">경제2</h3>
+                            <p style="font-size: 13px; color: #6b778c;">실시간 시장 분석</p>
+                        </div>
+                    </div>
+
+                    <div class="card-right">
+                        <div class="info-row">
+                            <span>코스피</span>
+                            <span class="highlight">2,650.12 ▲</span>
+                        </div>
+                        <div class="info-row">
+                            <span>USD/KRW</span>
+                            <span class="down">1,310.50 ▼</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        window.onload = function() {
+            // 사용자 환영 메시지 로직 (필요시 사용)
+        };
+    </script>
 </div>
-
-<h2>경제 이슈 ( {{ summary.proc_date[:4] }}-{{ summary.proc_date[4:6] }}-{{ summary.proc_date[6:] }} )</h2>
-<div class="indx-content">
-  {{ thdy_mnrt.cntn }}
-</div>
-
-
 {% endblock %}

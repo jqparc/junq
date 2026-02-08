@@ -2,5 +2,29 @@
 
 {% block content %}
 
+<div class="board-container">
+    <div class="board-header">
+        <h2>📊 경제 인사이트</h2>
+        <a href="/write" class="btn-write">글쓰기</a>
+    </div>
+
+    <table class="board-table">
+        <thead>
+            <tr>
+                <th width="3%">No.</th>
+                <th width="67%">제목</th>
+                <th width="15%">작성자</th>
+                <th width="15%">작성일</th>
+            </tr>
+        </thead>
+        <tbody id="postList">
+            <tr>
+                <td colspan="4" class="empty-row">데이터를 불러오는 중...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="{{ url_for('static', path='/js/ecnm_info.js') }}"></script>
 
 {% endblock %}

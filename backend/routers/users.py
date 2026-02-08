@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm
-import database, schemas, crud, auth # 필요한 모듈 임포트
+import database, schemas, crud, auth, models # 필요한 모듈 임포트
 
 # main.py에서 app = FastAPI() 하던 것 대신, 여기서는 router를 씁니다.
 router = APIRouter(
@@ -22,7 +22,7 @@ def register(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
 # 실제 주소: /users/login
 @router.post("/login", response_model=schemas.Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
-    user = crud.get_user_by_username(db, username=form_data.username)
+    user = crud.get_user_by_email(db, email=form_data.username)
     # models.py 수정에 맞춰 user.password로 검증
     if not user or not auth.verify_password(form_data.password, user.password):
         raise HTTPException(
@@ -31,5 +31,9 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
             headers={"WWW-Authenticate": "Bearer"},
         )
     
-    access_token = auth.create_access_token(data={"sub": user.username})
+    access_token = auth.create_access_token(data={"sub": user.email})
     return {"access_token": access_token, "token_type": "bearer"}
+
+@router.get("/me", response_model=schemas.UserResponse)
+def read_users_me(current_user: models.User = Depends(auth.get_current_user)):
+    return current_user

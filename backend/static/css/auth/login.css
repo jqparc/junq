@@ -1,54 +1,106 @@
-/* static/css/base_indx.css */
-.login-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 60px auto;      /* 가로·세로 중앙 느낌 */
-    text-align: center;     /* 내부 버튼 가운데 정렬 */
+
+/* 로그인 페이지 전용 스타일 */
+body {
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
-.login-buttons {
-    margin-top: 30px;
+.login-container {
+    display: flex; /* 좌우 배치를 위한 Flexbox */
+    background-color: white;
+    width: 900px;
+    height: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden; /* 이미지가 둥근 모서리를 넘치지 않게 */
+}
+
+/* 왼쪽: 기업 이미지 영역 */
+.left-panel {
+    flex: 1; /* 1:1 비율 중 1 */
+    background-color: #3b5998; /* 이미지가 없을 때 배경색 */
+    /* 실제 이미지를 넣으려면 아래 주석을 해제하고 경로를 수정하세요 */
+    /* background-image: url('/static/images/company_bg.jpg'); */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 오른쪽: 입력 폼 영역 */
+.right-panel {
+    flex: 1; /* 1:1 비율 중 1 */
+    padding: 60px 50px;
     display: flex;
     flex-direction: column;
-    gap: 15px;              /* 버튼 간격 */
-    align-items: center;
+    justify-content: center;
 }
 
-.login-buttons .btn {
-    width: 100%;
-    max-width: 280px;
-    padding: 14px 0;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 16px;
+.company-name {
+    font-size: 32px;
     font-weight: bold;
+    color: #333;
+    margin-bottom: 40px;
+    text-align: left; /* 기업명 왼쪽 정렬 */
+    cursor: pointer;
+}
+
+/* 아이디/비번과 버튼을 가로로 배치하는 컨테이너 */
+.input-button-group {
+    display: flex;
+    gap: 10px; /* 입력창과 버튼 사이 간격 */
+    margin-bottom: 20px;
+}
+
+.inputs-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 아이디와 비번 사이 간격 */
+}
+
+.inputs-wrapper input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.login-btn {
+    width: 100px; /* 버튼 너비 고정 */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    /* 높이를 입력창 2개 합친 것과 맞추기 위해 100% 설정 (부모가 stretch) */
+}
+
+.login-btn:hover {
+    background-color: #0056b3;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.footer-links a {
     text-decoration: none;
-    display: block;
-    text-align: center;
-    transition: 0.2s;
-}
-
-/* 네이버 로그인 초록색 */
-.naver-login {
-    background-color: #03C75A;
-}
-.naver-login:hover {
-    background-color: #02b653;
-}
-
-/* 카카오 로그인 노란색 + 검정 텍스트 */
-.kakao-login {
-    background-color: #FEE500;
-    color: #3A1D1D;
-}
-.kakao-login:hover {
-    background-color: #f3d900;
-}
-
-/* 회원가입 회색 */
-.signup-btn {
-    background-color: #8E8E8E;
-}
-.signup-btn:hover {
-    background-color: #7a7a7a;
+    color: #666;
 }

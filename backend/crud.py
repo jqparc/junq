@@ -6,11 +6,19 @@ import models, schemas, auth
 def get_user_by_username(db: Session, username: str):
     return db.query(models.User).filter(models.User.username == username).first()
 
+def get_user_by_email(db: Session, email: str):
+    return db.query(models.User).filter(models.User.email == email).first()
+
 def create_user(db: Session, user: schemas.UserCreate):
     hashed_password = auth.get_password_hash(user.password)
     # models.User에 정의된 필드명에 맞춰 저장
     # 컬럼 이름인 'password'에 해시된 비밀번호 값을 넣어줍니다.
-    db_user = models.User(username=user.username, password=hashed_password)
+    db_user = models.User(
+        username=user.username,
+        nickname=user.nickname,
+        email=user.email,
+        phone=user.phone, 
+        password=hashed_password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
@@ -21,6 +29,10 @@ def create_user(db: Session, user: schemas.UserCreate):
 # 1. 게시글 목록 조회 (최신순 정렬)
 def get_posts(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Post).order_by(models.Post.id.desc()).offset(skip).limit(limit).all()
+
+def get_post(db: Session, post_id: int):
+    return db.query(models.Post).filter(models.Post.id == post_id).first()
+
 
 # 2. 게시글 작성
 def create_post(db: Session, post: schemas.PostCreate, user_id: int):

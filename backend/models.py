@@ -8,8 +8,12 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
+    email = Column(String, unique=True, index=True)
+    username = Column(String, index=True)
+    nickname = Column(String, unique=True, index=True)
     password = Column(String)
+    phone = Column(String)
+    address = Column(String)
     
     # 이 유저가 쓴 글 목록 (Post 테이블과 연결)
     posts = relationship("Post", back_populates="owner")

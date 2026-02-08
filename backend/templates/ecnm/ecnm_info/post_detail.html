@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="board-container">
+    <div class="board-header" style="display: flex; justify-content: space-between; align-items: flex-end;">
+        <h2 id="postTitle">로딩 중...</h2>
+        <button onclick="history.back()" class="btn-write" style="background-color: #666;">목록으로</button>
+    </div>
+    
+    <div style="margin-bottom: 20px; color: #666; font-size: 14px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+        작성자: <span id="postOwner"></span> | 작성일: <span id="postDate"></span>
+    </div>
+
+    <div id="postContent" style="line-height: 1.6; min-height: 300px; white-space: pre-wrap;">
+        내용을 불러오고 있습니다...
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        // URL에서 ID 추출 (예: /ecnm_info/detail/5 -> 5)
+        const pathSegments = window.location.pathname.split('/');
+        const postId = pathSegments[pathSegments.length - 1];
+
+        try {
+            const response = await fetch(`/ecnm_info/read/${postId}`);
+            if (!response.ok) throw new Error("게시글을 찾을 수 없습니다.");
+
+            const post = await response.json();
+
+            document.getElementById('postTitle').innerText = post.title;
+            document.getElementById('postOwner').innerText = `No.${post.owner_id}`;
+            document.getElementById('postDate').innerText = new Date(post.created_at).toLocaleDateString();
+            document.getElementById('postContent').innerText = post.content;
+        } catch (error) {
+            console.error(error);
+            alert("데이터 로드 실패");
+            location.href = "/ecnm/info";
+        }
+    });
+</script>
+{% endblock %}

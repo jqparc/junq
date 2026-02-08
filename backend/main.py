@@ -7,7 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import models, schemas, auth, crud
 from database import engine, get_db
-from routers import users, posts, home, auth, ecnm
+from routers import users, posts, home, auth, ecnm, ecnm_info
 from starlette.middleware.sessions import SessionMiddleware
 
 # 서버 실행 시 DB 테이블 생성
@@ -43,3 +43,4 @@ app.include_router(auth.router)   # 로그인/회원가입 (주소: /auth/...)
 app.include_router(users.router)  # 유저 API
 app.include_router(posts.router)  # 게시글 API
 app.include_router(ecnm.router)  # 경제 화면 API
+app.include_router(ecnm_info.router)  # 경제 화면 API

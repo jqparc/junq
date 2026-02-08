@@ -38,6 +38,31 @@ button, .btn{
 button:hover, .btn:hover {
   background-color: #1a263ad5;
 }
+/* 버튼 디자인 예시 */
+.board-header {
+    display: flex;
+    justify-content: space-between; /* 양 끝 배치 */
+    align-items: center;            /* 세로 중앙 정렬 */
+    /* margin-bottom: 20px; */
+}
+
+.btn-write {
+    align-items: bottom;            /* 세로 중앙 정렬 */
+    display: inline-block;
+    background-color: #1A263A;     /* 신뢰감을 주는 파란색 */
+    color: #ccc;
+    padding: 4px 8px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    margin-bottom: 2px;
+}
+
+.btn-write:hover {
+    background-color: #003d99;     /* 마우스 올렸을 때 더 진하게 */
+}
 /*******************테이블 관련 레이아웃*****************/
 table {
   width: 100%;

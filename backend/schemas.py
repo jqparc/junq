@@ -6,6 +6,9 @@ from typing import List, Optional
 class UserCreate(BaseModel):
     username: str
     password: str
+    email: str      # 추가
+    nickname: str   # 추가
+    phone: str      # 추가
 
 class Token(BaseModel):
     access_token: str
@@ -14,6 +17,8 @@ class Token(BaseModel):
 class UserResponse(BaseModel):
     id: int
     username: str
+    email: str      # 응답에도 포함하고 싶다면 추가
+    nickname: str   # 응답에도 포함하고 싶다면 추가
     class Config:
         from_attributes = True 
 

@@ -4,11 +4,36 @@
 {% block content %}
 <div class="container mt-4">
   <h3 class="mb-4">시장지표</h3>
+
+  <div class="chart-wrapper">
+    <div class="latest-data-container">
+            
+          <div class="date-row">
+              <span class="date-label"></span>
+              <span id="latestDate" class="date-value">Loading...</span>
+          </div>
+
+          <div class="metrics-row">
+              <div class="data-item">
+                  <span class="label" style="color: #b41010;">DXY</span>
+                  <span id="latestDXY" class="value" style="color: #b41010;">-</span>
+              </div>
+              <div class="data-item">
+                  <span class="label" style="color: #09008d;">USD/KRW</span>
+                  <span id="latestKRW" class="value" style="color: #09008d;">-</span>
+              </div>
+          </div>
+      
+      </div>
+    <div id="chartLoading" class="text-center text-muted">데이터를 불러오는 중...</div>
+    <canvas id="marketChart"></canvas>
+  </div>
 </div>
-<div style="background: yellow; padding: 10px;">
-    현재 active_dtl 값: <strong>{{ active_dtl }}</strong>
-</div>
-<h3>연간 USD/KRW</h3>=
-<h3>연간 달러인덱스 (DXY)</h3>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link rel="stylesheet" href="{{ url_for('static', path='/css/ecnm/ecnm_chart.css') }}">
+<script src="{{ url_for('static', path='/js/ecnm_chart.js') }}"></script>
+
 
 {% endblock %}

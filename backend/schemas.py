@@ -27,6 +27,7 @@ class UserResponse(BaseModel):
 # 1. 글 작성할 때 (클라이언트 -> 서버)
 # 제목과 내용만 받습니다. (작성자 ID는 서버에서 처리)
 class PostCreate(BaseModel):
+    category: str
     title: str
     content: str
 
@@ -34,6 +35,7 @@ class PostCreate(BaseModel):
 # DB에 저장된 ID, 작성일, 작성자ID(owner_id)를 포함해서 돌려줍니다.
 class PostResponse(BaseModel):
     id: int
+    category: str
     title: str
     content: str
     created_at: datetime | None = None # 작성일

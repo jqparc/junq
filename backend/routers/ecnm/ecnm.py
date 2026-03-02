@@ -4,12 +4,19 @@ from datetime import datetime, timedelta
 from services import yfinance_service
 import os
 
+from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer # 토큰 인증용
+from jose import JWTError, jwt # 토큰 디코딩용
+from typing import List # 리스트 타입 힌트
+from sqlalchemy.orm import Session
+import database, schemas, models, crud, auth
+from pathlib import Path
+
 # 1. 라우터 생성 (태그는 문서화용)
 router = APIRouter(prefix="/ecnm", tags=["ecnm"])
 
 # 2. 템플릿(HTML) 폴더 위치 찾기
-# (현재 파일 위치에서 두 단계 위로 올라가서 templates 폴더 찾음)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 nav_dtl_tab = [ 
@@ -19,10 +26,10 @@ nav_dtl_tab = [
 
 # 3. 홈 화면 연결
 # HTML에서 url_for('home')라고 부르면 이 함수가 실행됩니다.
-@router.get("/", name="ecnm")
+@router.get("", name="ecnm")
 def ecnm_indx(request: Request):
     # home.html을 브라우저에 보여줍니다.
-    return templates.TemplateResponse("ecnm/ecnm_indx.html", {
+    return templates.TemplateResponse("ecnm/indx.html", {
         "request": request, 
         "active_top": "ecnm",  # 상단 탭 '홈'을 활성화 상태로 표시
         "active_dtl": "",  
@@ -32,7 +39,7 @@ def ecnm_indx(request: Request):
 @router.get("/idct", name="ecnm.idct")
 def ecnm_idct(request: Request):
     # home.html을 브라우저에 보여줍니다.
-    return templates.TemplateResponse("ecnm/ecnm_idct.html", {
+    return templates.TemplateResponse("ecnm/idct/indx.html", {
         "request": request, 
         "active_top": "ecnm", 
         "active_dtl": "idct",  
@@ -42,7 +49,7 @@ def ecnm_idct(request: Request):
 @router.get("/info", name="ecnm.info")
 def ecnm_info(request: Request):
     # home.html을 브라우저에 보여줍니다.
-    return templates.TemplateResponse("ecnm/ecnm_info.html", {
+    return templates.TemplateResponse("ecnm/info/indx.html", {
         "request": request, 
         "active_top": "ecnm",  
         "active_dtl": "info", 
@@ -67,3 +74,23 @@ def get_ecnm_chart_data():
     df_reset['Date'] = df_reset['Date'].dt.strftime('%Y-%m-%d')
 
     return df_reset.to_dict(orient= 'records')
+
+
+@router.get("/write", name="ecnm.write")
+def ecnm_write(request: Request):
+    # home.html을 브라우저에 보여줍니다.
+    return templates.TemplateResponse("ecnm/ecnm_info/write.html", {
+        "request": request, 
+        "active_top": "ecnm",  
+        "active_dtl": "info", 
+        "nav_dtl_tabs": nav_dtl_tab
+    })
+
+
+# @router.post("/posts", response_model=schemas.PostResponse)
+# def create_post(
+#     post: schemas.PostCreate, 
+#     db: Session = Depends(database.get_db),
+#     current_user: models.User = Depends(auth.get_current_user) # 토큰 검사
+# ):
+#     return crud.create_post(db=db, post=post, user_id=current_user.id)

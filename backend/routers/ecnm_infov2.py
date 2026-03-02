@@ -9,6 +9,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates  # 임포트 확인
 # 위에서 만든 dependencies를 가져옵니다
 from auth import get_current_user 
+import database, schemas, models, crud, auth
 
 # URL 앞에 자동으로 /ecnm_info 가 붙도록 설정
 router = APIRouter(
@@ -48,3 +49,10 @@ def read_post_data(post_id: int, db: Session = Depends(get_db)):
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
     return post
+
+@router.get("/edit/{post_id}")
+def edit_post_page(request: Request, post_id: int, db: Session = Depends(database.get_db)):
+    # DB에서 게시글 가져오기
+    post = crud.get_post(db, post_id) 
+    
+    return templates.TemplateResponse("ecnm/ecnm_info/write.html", {"request": request, "post": post})

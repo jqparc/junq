@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', path='css/ecnm/ecnm_info/write.css') }}">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="common-full-container">
+    <div class="full-ct-head">{{ '글 수정' if post else '새 글 작성' }}</div>
+    
+    <div class="input-head-row">
+        <select id="category" class="full-ct-category-select">
+            <option value="A" {% if post and post.category == 'A' %}selected{% endif %}>당잠사</option>
+            <option value="B" {% if post and post.category == 'B' %}selected{% endif %}>퇴근요정</option>
+            <option value="C" {% if post and post.category == 'C' %}selected{% endif %}>시장지표</option>
+            <option value="D" {% if post and post.category == 'D' %}selected{% endif %}>공지사항</option>
+        </select>
+        
+        <input class ="full-ct-input-head" type="text" id="title" 
+               placeholder="제목을 입력하세요" required
+               value="{{ post.title if post else '' }}">
+    </div>
+    
+    <div id="editor-container"></div>
+
+    <div id="initial-content" style="display:none;">
+        {{ post.content | safe if post else '' }}
+    </div>
+    
+    <input type="hidden" id="postId" value="{{ post.id if post else '' }}">
+
+    <div class="full-ct-bottom">
+        <div class="full-ct-btm-btn" >
+            {% if post %}
+                <button onclick="updatePost()" style="flex: 2; padding: 12px; background: #0052cc; color: white; border: none; border-radius: 4px; cursor: pointer;">수정완료</button>
+            {% else %}
+                <button onclick="submitPost()" style="flex: 2; padding: 12px; background: #0052cc; color: white; border: none; border-radius: 4px; cursor: pointer;">등록</button>
+            {% endif %}
+            
+            <button onclick="history.back()" style="flex: 1; padding: 12px; background: #dfe1e6; border: none; border-radius: 4px; cursor: pointer;">취소</button>
+        </div>        
+    </div>
+</div>
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="{{ url_for('static', path='/js/ecnm/ecnm_info/write.js') }}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // write.js에서 quill 객체를 전역으로 선언했다고 가정하거나, 여기서 접근 가능해야 함
+        // 만약 write.js 내부 변수라면, write.js 안에 초기화 로직을 넣어야 합니다.
+        
+        const initialContent = document.getElementById('initial-content').innerHTML;
+        // 내용이 있고, quill 객체가 존재한다면 내용 삽입
+        if (initialContent.trim() !== "" && typeof quill !== 'undefined') {
+            quill.root.innerHTML = initialContent;
+        }
+    });
+
+    // [수정 요청 함수]
+    async function updatePost() {
+        const id = document.getElementById('postId').value;
+        const title = document.getElementById('title').value;
+        const category = document.getElementById('category').value;
+        const content = quill.root.innerHTML; // Quill 에디터 내용 가져오기
+
+        if (!title.trim()) { alert("제목을 입력하세요."); return; }
+
+        try {
+            const response = await fetch(`/ecnm/info/update/${id}`, {
+                method: 'PUT', // 또는 POST (백엔드 설정에 따름)
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title, category, content })
+            });
+
+            if (response.ok) {
+                alert("수정이 완료되었습니다.");
+                window.location.href = `/ecnm/info/detail/${id}`; // 상세 페이지로 이동
+            } else {
+                alert("수정 실패: " + response.statusText);
+            }
+        } catch (error) {
+            console.error(error);
+            alert("오류가 발생했습니다.");
+        }
+    }
+</script>
+{% endblock %}

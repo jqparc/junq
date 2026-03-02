@@ -4,10 +4,7 @@
 
 <h3>📊 인사이트</h3>
 <div class="common-half-container">
-    <div class="common-full-container">
-        
-    </div>
-    <div class="board-container">
+    <div class="board-container" style="height: calc(100vh - 200px);">
         <div class="board-header">
             <h2>게시판</h2>
             <a href="{{ url_for('ecnm.write') }}" class="btn-write">글쓰기</a>
@@ -29,9 +26,14 @@
                 </tr>
             </tbody>
         </table>
+        <div class="board-pagination" style="display: flex; justify-content: center; align-items: center; gap: 5px; flex-shrink: 0;">
+        </div>
+    </div>
+    <div class="common-full-container">
+        
     </div>
 </div>
 
-<script src="{{ url_for('static', path='/js/ecnm_info.js') }}"></script>
+<script src="{{ url_for('static', path='/js/ecnm/info/indx.js') }}"></script>
 
 {% endblock %}

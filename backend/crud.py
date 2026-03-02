@@ -38,6 +38,7 @@ def get_post(db: Session, post_id: int):
 def create_post(db: Session, post: schemas.PostCreate, user_id: int):
     # 스키마(title, content) + 유저ID(owner_id)를 합쳐서 DB 모델 생성
     db_post = models.Post(
+        category=post.category,
         title=post.title,
         content=post.content,
         owner_id=user_id 

@@ -1,0 +1,130 @@
+<!-- templates/ecnm/idct/indx.html -->
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 class="mb-4">시장지표</h3>
+<div class="common-half-container">
+    <table class="grd">
+        <thead>
+            <tr>
+                <th>달러원</th>
+                <th>달러인덱스</th>
+                <th>비트코인</th>
+                <th>이더리움</th>
+                <th>금</th>
+                <th>은</th>
+                <th>WTI유</th>
+            </tr>
+        </thead>
+        <tbody id="postGrdBody">
+            <tr id="row-prc">
+                <td id="cell-USD">-</td>
+                <td id="cell-DXY">-</td>
+                <td id="cell-BTC">-</td>
+                <td id="cell-ETH">-</td>
+                <td id="cell-GLD">-</td>
+                <td id="cell-SLV">-</td>
+                <td id="cell-WTI">-</td>
+            </tr>
+            <tr id="row-dif">
+                <td id="cell-USD-dif">-</td>
+                <td id="cell-DXY-dif">-</td>
+                <td id="cell-BTC-dif">-</td>
+                <td id="cell-ETH-dif">-</td>
+                <td id="cell-GLD-dif">-</td>
+                <td id="cell-SLV-dif">-</td>
+                <td id="cell-WTI-dif">-</td>
+            </tr>
+            <tr id="row-date">
+                <td id="cell-USD-date">-</td>
+                <td id="cell-DXY-date">-</td>
+                <td id="cell-BTC-date">-</td>
+                <td id="cell-ETH-date">-</td>
+                <td id="cell-GLD-date">-</td>
+                <td id="cell-SLV-date">-</td>
+                <td id="cell-WTI-date">-</td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="grd02">
+        <thead>
+            <tr>
+                <th>S&P 500</th>
+                <th>나스닥</th>
+                <th>다우존스</th>
+                <th>러셀 2000</th>
+                <th>VIX</th>
+                <th>코스피</th>
+                <th>코스닥</th>
+            </tr>         
+        </thead>
+        <tbody id="postGrdBody02">
+            <tr id="row-prc">                
+                <td id="cell-SNP">-</td>
+                <td id="cell-NSQ">-</td>
+                <td id="cell-DOW">-</td>
+                <td id="cell-RSS">-</td>
+                <td id="cell-VIX">-</td>
+                <td id="cell-KSP">-</td>
+                <td id="cell-KSQ">-</td>
+            </tr>
+            <tr id="row-dif">
+                <td id="cell-SNP-dif">-</td>
+                <td id="cell-NSQ-dif">-</td>
+                <td id="cell-DOW-dif">-</td>
+                <td id="cell-RSS-dif">-</td>
+                <td id="cell-VIX-dif">-</td>
+                <td id="cell-KSP-dif">-</td>
+                <td id="cell-KSQ-dif">-</td>
+            </tr>
+            <tr id="row-date">                
+                <td id="cell-SNP-date">-</td>
+                <td id="cell-NSQ-date">-</td>
+                <td id="cell-DOW-date">-</td>
+                <td id="cell-RSS-date">-</td>
+                <td id="cell-VIX-date">-</td>
+                <td id="cell-KSP-date">-</td>
+                <td id="cell-KSQ-date">-</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="chart-container" style="position: relative; height: 150px; width: 100%;">
+        <canvas id="chartDXY"></canvas>
+    </div>
+    <div class="chart-container" style="position: relative; height: 150px; width: 100%;">
+        <canvas id="chartUSD"></canvas>
+    </div>
+    <div class="chart-container" style="position: relative; height: 150px; width: 100%;">
+        <canvas id="chartBTC"></canvas>
+    </div>
+    <div class="chart-container" style="position: relative; height: 150px; width: 100%;">
+        <canvas id="chartETH"></canvas>
+    </div>
+    <div class="chart-container" style="position: relative; height: 150px; width: 100%;">
+        <canvas id="chartGLD"></canvas>
+    </div>
+    <div class="chart-container" style="position: relative; height: 150px; width: 100%;">
+        <canvas id="chartSLV"></canvas>
+    </div>
+    <div class="chart-container" style="position: relative; height: 150px; width: 100%;">
+        <canvas id="chartWTI"></canvas>
+    </div>
+    <div class="chart-container" style="position: relative; height: 150px; width: 100%;">
+        <canvas id="chartUS3"></canvas>
+    </div>
+    <div class="chart-container" style="position: relative; height: 150px; width: 100%;">
+        <canvas id="chartU10"></canvas>
+    </div>
+    <div class="chart-container" style="position: relative; height: 150px; width: 100%;">
+        <canvas id="chartU30"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- <link rel="stylesheet" href="{{ url_for('static', path='/css/ecnm/idct/indx.css') }}"> -->
+<script src="{{ url_for('static', path='/js/ecnm/idct/indx.js') }}"></script>
+
+
+{% endblock %}

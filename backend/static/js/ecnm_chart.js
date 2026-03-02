@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         // 데이터가 준비되면 로딩 문구 숨김
         loadingDiv.style.display = 'none';
         
-if (data && data.length > 0) {
+        if (data && data.length > 0) {
             const lastData = data[data.length - 1]; // 오늘(최신)
             const prevData = data.length > 1 ? data[data.length - 2] : null; // 어제(이전)
 

@@ -40,6 +40,7 @@ class PostResponse(BaseModel):
     content: str
     created_at: datetime | None = None # 작성일
     owner_id: int        # 작성자 ID (누가 썼는지 식별)
+    owner: UserResponse
 
     class Config:
         from_attributes = True # ORM 객체 매핑 허용

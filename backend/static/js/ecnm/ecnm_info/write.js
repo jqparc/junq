@@ -85,7 +85,7 @@ async function updatePost() {
 
         if (response.ok) {
             alert("수정이 완료되었습니다.");
-            window.location.href = `/ecnm/info/detail/${id}`; // 상세 페이지로 이동
+            window.location.href = `/ecnm/info/post/${id}`; // 상세 페이지로 이동
         } else {
             alert("수정 실패: " + response.statusText);
         }

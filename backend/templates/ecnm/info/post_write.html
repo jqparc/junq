@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', path='css/ecnm/ecnm_info/write.css') }}">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="common-full-container">
+    
+    <div class="input-head-row">
+        <select id="category" class="full-ct-category-select">
+            <option value="A" {% if post and post.category == 'A' %}selected{% endif %}>당잠사</option>
+            <option value="B" {% if post and post.category == 'B' %}selected{% endif %}>퇴근요정</option>
+            <option value="C" {% if post and post.category == 'C' %}selected{% endif %}>시장지표</option>
+            <option value="D" {% if post and post.category == 'D' %}selected{% endif %}>공지사항</option>
+        </select>
+        <input class ="full-ct-input-head" type="text" id="title" placeholder="제목을 입력하세요" required value="{{ post.title if post else '' }}">
+    </div>
+    
+
+    <div id="editor-container"></div>
+
+    <div id="initial-content" style="display:none;">
+        {{ post.content | safe if post else '' }}
+    </div>
+    
+    <input type="hidden" id="postId" value="{{ post.id if post else '' }}">
+
+    <div class="full-ct-bottom">
+        <div class="full-ct-btm-btn" >
+            {% if post %}
+                <button onclick="updatePost()" style="flex: 2; padding: 12px; background: #0052cc; color: white; border: none; border-radius: 4px; cursor: pointer;">수정완료</button>
+            {% else %}
+                <button onclick="submitPost()" style="flex: 2; padding: 12px; background: #0052cc; color: white; border: none; border-radius: 4px; cursor: pointer;">등록</button>
+            {% endif %}
+            
+            <button onclick="history.back()" style="flex: 1; padding: 12px; background: #dfe1e6; border: none; border-radius: 4px; cursor: pointer;">취소</button>
+        </div>        
+    </div>
+
+    
+</div>
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="{{ url_for('static', path='/js/ecnm/ecnm_info/write.js') }}"></script>
+{% endblock %}

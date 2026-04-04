@@ -47,3 +47,20 @@ def create_post(db: Session, post: schemas.PostCreate, user_id: int):
     db.commit()
     db.refresh(db_post)
     return db_post
+
+def update_post(db: Session, post_id: int, post: schemas.PostCreate):
+    # 1. DB에서 수정할 게시글 번호(post_id)로 글을 찾습니다.
+    db_post = db.query(models.Post).filter(models.Post.id == post_id).first()
+    
+    # 2. 글이 존재하면 내용을 덮어씌웁니다.
+    if db_post:
+        db_post.category = post.category
+        db_post.title = post.title
+        db_post.content = post.content
+        
+        # 3. 변경된 내용을 DB에 저장(commit)합니다.
+        db.commit()
+        db.refresh(db_post)
+        return db_post
+        
+    return None # 글이 없으면 None 반환

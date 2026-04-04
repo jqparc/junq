@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 import schemas, crud, models
@@ -11,6 +11,11 @@ from fastapi.templating import Jinja2Templates  # 임포트 확인
 from auth import get_current_user 
 import database, schemas, models, crud, auth
 
+nav_dtl_tab = [ 
+    {"id": "idct", "name": "시장지표", "url": "/ecnm/idct"},
+    {"id": "info", "name": "인사이트", "url": "/ecnm/info"} 
+] 
+
 router = APIRouter(prefix="/info", tags=["info"])
 
 # 2. 템플릿(HTML) 폴더 위치 찾기
@@ -18,7 +23,15 @@ router = APIRouter(prefix="/info", tags=["info"])
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
-# 1. 게시글 목록 조회
+@router.get("/write", name="ecnm.info.write")
+def ecnm_write(request: Request):
+    # home.html을 브라우저에 보여줍니다.
+    return templates.TemplateResponse("ecnm/info/post_write.html", {
+        "request": request, 
+        "active_top": "ecnm",  
+        "active_dtl": "info", 
+        "nav_dtl_tabs": nav_dtl_tab
+    })
 
 @router.get("/posts", response_model=List[schemas.PostResponse])
 def read_posts(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
@@ -35,7 +48,13 @@ def create_post(
 
 @router.get("/post/{post_id}", response_class=HTMLResponse)
 async def read_post(request: Request, post_id: int):
-    return templates.TemplateResponse("ecnm/ecnm_info/post_detail.html", {"request": request, "post_id": post_id})
+    return templates.TemplateResponse("ecnm/info/post_read.html", {
+        "request": request, 
+        "post_id": post_id,
+        "active_top": "ecnm",  
+        "active_dtl": "info", 
+        "nav_dtl_tabs": nav_dtl_tab
+    })
 
 # 상세 페이지 데이터 반환 (JSON)
 @router.get("/read/{post_id}", response_model=schemas.PostResponse)
@@ -45,9 +64,39 @@ def read_post_data(post_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Post not found")
     return post
 
-@router.get("/edit/{post_id}")
-def edit_post_page(request: Request, post_id: int, db: Session = Depends(database.get_db)):
+@router.get("/update/{post_id}")
+def update_post_page(request: Request, post_id: int, db: Session = Depends(database.get_db)):
     # DB에서 게시글 가져오기
     post = crud.get_post(db, post_id) 
     
-    return templates.TemplateResponse("ecnm/ecnm_info/write.html", {"request": request, "post": post})
+    return templates.TemplateResponse("ecnm/info/post_write.html", {
+        "request": request, 
+        "post": post,
+        "active_top": "ecnm",  
+        "active_dtl": "info", 
+        "nav_dtl_tabs": nav_dtl_tab
+    })
+
+@router.put("/update/{post_id}", response_model=schemas.PostResponse)
+def update_post_api(post_id: int, post: schemas.PostCreate, db: Session = Depends(get_db)):
+    updated_post = crud.update_post(db=db, post_id=post_id, post=post)
+    
+    if not updated_post:
+        raise HTTPException(status_code=404, detail="게시글을 찾을 수 없습니다.")
+        
+    return updated_post
+
+@router.delete("/delete/{post_id}")
+def delete_post(post_id: int, db: Session = Depends(get_db)):
+    # 1) 먼저 DB에서 해당 게시글이 있는지 찾습니다.
+    post = crud.get_post(db, post_id=post_id)
+    
+    # 2) 글이 없으면 에러 반환
+    if not post:
+        raise HTTPException(status_code=404, detail="게시글을 찾을 수 없습니다.")
+    
+    # 3) 글이 있으면 삭제 후 반영
+    db.delete(post)
+    db.commit()
+    
+    return {"message": "게시글이 성공적으로 삭제되었습니다."}

@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // }
 });
 // 게시글 목록 불러오기 함수
-async function loadPosts(page) {
+async function loadPosts(page) { 
     const listDiv = document.getElementById('postList');
 
     if (!listDiv) {
@@ -43,20 +43,28 @@ async function loadPosts(page) {
             return;
         }
 
+        const categoryMap = {
+            'A': '당잠사',
+            'B': '퇴근요정',
+            'C': '시장지표',
+            'D': '공지사항'
+        }
+
         //받아온 글 목록을 하나씩 화면에 그림
         posts.forEach(post => {
             const date = new Date(post.created_at).toLocaleDateString();
-            const category = post.category ? post.category : '일반'; // category가 없을 경우 기본값
+            const catCode = post.category || 'Z'; 
+            const categoryName = categoryMap[catCode] || '기타'; // category가 없을 경우 기본값
             
             // ★ 테이블 행(tr) 생성
             const row = `
                 <tr>
                     <td>${post.id}</td>
-                    <td>${escapeHtml(category)}</td>
+                    <td>${escapeHtml(categoryName)}</td>
                     <td class="text-left" style="cursor:pointer;" onclick="location.href='/ecnm/info/post/${post.id}'">
                         ${escapeHtml(post.title)}
                     </td>
-                    <td>No.${post.owner_id}</td>
+                    <td>${post.owner.nickname}</td>
                     <td>${date}</td>
                 </tr>
             `;

@@ -76,15 +76,7 @@ def get_ecnm_chart_data():
     return df_reset.to_dict(orient= 'records')
 
 
-@router.get("/write", name="ecnm.write")
-def ecnm_write(request: Request):
-    # home.html을 브라우저에 보여줍니다.
-    return templates.TemplateResponse("ecnm/ecnm_info/write.html", {
-        "request": request, 
-        "active_top": "ecnm",  
-        "active_dtl": "info", 
-        "nav_dtl_tabs": nav_dtl_tab
-    })
+
 
 
 # @router.post("/posts", response_model=schemas.PostResponse)

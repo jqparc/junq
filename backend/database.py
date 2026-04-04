@@ -11,11 +11,10 @@ DB_DIR = os.path.join(BASE_DIR, "database")
 if not os.path.exists(DB_DIR):
     os.makedirs(DB_DIR)
 
-SQLALCHEMY_DATABASE_URL = f"sqlite:///{os.path.join(DB_DIR, 'junq.db')}"
+SQLALCHEMY_DATABASE_URL = "postgresql://neondb_owner:npg_7IsL9uqoNDfZ@ep-jolly-king-a186m392-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # ⭐ 이 부분이 빠져있을 확률이 높습니다! 꼭 확인하세요.
